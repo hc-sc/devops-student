@@ -9,11 +9,11 @@ describe("Test API and database", () => {
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(200, [], done);
     });
-//test
+
     test("processes GET non-empty", (done) => {
         const testData = [
             {
-                firstName: "Jane",
+                firstName: "John",
                 lastName: "Dane",
                 favoritePet: "dog",
                 favoriteColor: "Blue",
