@@ -1,5 +1,6 @@
 const request = require('supertest');
 const server = require('../server.js')('test_data');
+//this is a test commit
 
 describe("Test API and database", () => {
     test("processes GET empty", (done) => {
