@@ -2,33 +2,42 @@ import { render, screen, cleanup } from "@testing-library/react";
 import { MemoryRouter as Router } from 'react-router-dom';
 import AdminSignIn from '../pages/AdminSignIn'
 
-afterEach(()=>{
+afterEach(() => {
     cleanup();
 })
 
-test('should render admin username input', () =>{
+test('should render admin username input field with required label', () => {
     render(<Router>
         <AdminSignIn/>
     </Router>);
-    const returnButton = screen.getByTestId('adminUsername');
-    expect(returnButton).toBeInTheDocument();
-    expect(returnButton).toContainHTML('</input type="text">');
+    const parentElement = screen.getByTestId('adminUsername');
+    const label = screen.getByTestId('adminUsernameLabel');
+
+    expect(parentElement).toBeInTheDocument();
+    expect(parentElement).toContainElement(label);
+
+    expect(label).toHaveClass('required');
 });
 
-test('should render admin password input', () =>{
+test('should render admin password input field with required label', () => {
     render(<Router>
         <AdminSignIn/>
     </Router>);
-    const returnButton = screen.getByTestId('adminPass');
-    expect(returnButton).toBeInTheDocument();
-    expect(returnButton).toContainHTML('</input type="password">');
+    const parentElement = screen.getByTestId('adminPass');
+    const label = screen.getByTestId('adminPassLabel');
+
+    expect(parentElement).toBeInTheDocument();
+    expect(parentElement).toContainElement(label);
+
+    expect(label).toHaveClass('required');
 });
 
-test('should render Sign-in button', () =>{
+test('should render Sign-in button', () => {
     render(<Router>
         <AdminSignIn/>
     </Router>);
-    const returnButton = screen.getByTestId('SubmitBtn');
-    expect(returnButton).toBeInTheDocument();
-    expect(returnButton).toContainHTML('</button>');
+    const signInButton = screen.getByTestId('SignInBtn');
+    expect(signInButton).toBeInTheDocument();
+    expect(signInButton).toHaveTextContent('Sign In');
+    expect(signInButton).toHaveClass('btn btn-default');
 });
