@@ -1,5 +1,5 @@
 const request = require('supertest');
-const server = require('../server.js')('test_data');
+const server = require('../server.js')('test_data', 'localhost');
 const jwt = require('jsonwebtoken');
 
 let token;
