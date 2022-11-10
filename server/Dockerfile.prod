@@ -1,0 +1,15 @@
+FROM node:16.17.1-buster-slim as build
+RUN mkdir -p /home/app
+WORKDIR /home/app
+COPY . /home/app
+RUN npm i -D
+RUN npm i --global gulp-cli
+RUN gulp
+
+FROM node:16.17.1-buster-slim
+RUN mkdir -p /home/app
+WORKDIR /home/app
+COPY --from=build /home/app/dist /home/app
+RUN npm ci
+EXPOSE 8080/tcp
+CMD ["node","main.js"]
