@@ -4,7 +4,7 @@ resource "docker_image" "api" {
 
   build {
     path = "./server"
-    dockerfile = "Dockerfile"
+    dockerfile = "${terraform.workspace == "production" ? "Dockerfile.prod" : "Dockerfile"}"
   }
 }
 

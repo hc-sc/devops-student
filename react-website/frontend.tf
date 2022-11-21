@@ -10,7 +10,7 @@ resource "docker_image" "client" {
 
   build {
     path = "./react-website"
-    dockerfile = "Dockerfile"
+    dockerfile = "${terraform.workspace == "production" ? "Dockerfile.prod" : "Dockerfile"}"
   }
 }
 
@@ -26,12 +26,12 @@ resource "docker_container" "client" {
 
   mounts {
     source = "${path.cwd}/react-website/public/themes-dist"
-    target = "/home/app/public/themes-dist"
+    target = "${terraform.workspace == "production" ? "/usr/share/nginx/html/themes-dist" : "/home/app/public/themes-dist"}"
     type = "bind"
   }
   mounts {
     source = "${path.cwd}/react-website/public/wet-boew-dist"
-    target = "/home/app/public/wet-boew-dist"
+    target = "${terraform.workspace == "production" ? "/usr/share/nginx/html/wet-boew-dist" : "/home/app/public/wet-boew-dist"}"
     type = "bind"
   }
 }
